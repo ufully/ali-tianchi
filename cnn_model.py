@@ -42,7 +42,7 @@ class TextCNN(object):
         # 词向量映射
         with tf.device('/cpu:0'):
             embedding = tf.get_variable('embedding', [self.config.vocab_size, self.config.embedding_dim])
-            embedding_inputs = tf.nn.embedding_lookup(embedding, self.input_x)
+            embedding_inputs = tf.nn.embedding_lookup(embedding, self.input_x, name="input")
 
         with tf.name_scope("cnn"):
             # CNN layer
@@ -58,7 +58,7 @@ class TextCNN(object):
 
             # 分类器
             self.logits = tf.layers.dense(fc, self.config.num_classes, name='fc2')
-            self.y_pred_cls = tf.argmax(tf.nn.softmax(self.logits), 1)  # 预测类别
+            self.y_pred_cls = tf.argmax(tf.nn.softmax(self.logits), 1, name="output")  # 预测类别
 
         with tf.name_scope("optimize"):
             # 损失函数，交叉熵

@@ -90,7 +90,7 @@ def process_test_file(dir, word_to_id, cat_to_id, max_length=600):
     with open(dir, 'r') as f:
         reader = csv.reader(f)
         for row in reader:
-            if reader.line_num > 1:
+            if reader.line_num > 1 and reader.line_num <= 5002 :
                 # print(reader.line_num, row[0], row[1], row[2])
                 contents.append(row[0]+row[1])
 
